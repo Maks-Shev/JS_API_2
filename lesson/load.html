@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Document</title>
+    <style>
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .loader .fa-spinner {
+            font-size: 48px;
+            color: #333;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Анимация вращения */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <i class="fas fa-spinner"></i>
+    </div>
+
+    <div class="content hidden">
+        <h1>Заголовок</h1>
+        <p>Содержимое страницы</p>
+        <img src="https://img1.akspic.ru/attachments/crops/1/6/5/4/94561/94561-veterinarnyj_vrach-glaz-li_drakon-koshki_malogo_i_srednego_razmera-zhivotnoe_sidit-1920x1080.jpg" alt="кот" width="300px">
+    </div>
+
+    <script>
+        // Ждем полной загрузки страницы
+        window.addEventListener('load', function() {
+            document.querySelector('.loader').classList.add('hidden');
+            document.querySelector('.content').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
