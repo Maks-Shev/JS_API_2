@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Онлайн опросник</title>
+        <style>
+            html {
+                font-family: sans-serif;
+            }
+
+            section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 5%;
+            }
+            h1 {
+                text-align: center;
+                color: blueviolet;
+                font-size: 32px;
+            }
+            div:first-of-type {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 5px;
+            }
+            label {
+                margin-right: 20px;
+                line-height: 32px;
+            }
+            input {
+                appearance: none;
+                border-radius: 50%;
+                width: 16px;
+                height: 16px;
+                border: 2px solid #999;
+                transition: 0.2s all linear;
+                margin-right: 5px;
+                position: relative;
+                top: 4px;
+            }
+            input:checked {
+                border: 6px solid blueviolet;
+            }
+            legend {
+                max-width: 300px;
+            }
+
+            button,
+            legend {
+                margin-top: 40px;
+                color: white;
+                background-color: blueviolet;
+                padding: 10px 20px;
+                border-radius: 10px;
+                border: 0;
+                font-size: 16px;
+            }
+            button:hover,
+            button:focus {
+                color: #999;
+            }
+            button:active {
+                background-color: white;
+                outline: 1px solid black;
+            }
+            #results {
+                margin-top: 20px;
+                display: none;
+            }
+            #results h2 {
+                color: blueviolet;
+            }
+        </style>
+    </head>
+    <body>
+        <section>
+            <h1>Опросник</h1>
+            <form id="surveyForm" action="question">
+                <legend>Вопрос 1: Какой ваш любимый цвет?</legend>
+                <div class="question">
+                    <label>
+                         <input type="radio" id="question_1-1" name="q1" value="Синий"/> Синий
+                    </label>
+
+                    <label>
+                         <input type="radio" id="question_1-2" name="q1" value="Зеленый"/> Зеленый
+                    </label>
+
+                    <label>
+                        <input type="radio" id="question_1-3" name="q1" value="Красный"/> Красный
+                    </label>
+                </div>
+
+                <legend>Вопрос 2: Какое ваше любимое животное?</legend>
+                <div class="question">
+                    <label>
+                         <input type="radio" id="question_2-1" name="q2" value="Кот"/> Кот
+                    </label>
+
+                    <label>
+                        <input type="radio" id="question_2-2" name="q2" value="Собака"/> Собака
+                    </label>
+
+                    <label>
+                        <input type="radio" id="question_2-3" name="q2" value="Рыбки"/> Рыбки
+                    </label>
+                </div>
+                <div>
+                    <button id="submit">
+                        Завершить опрос
+                    </button>
+                </div>
+            </form>
+            <div id="results">
+                <p>Результаты опроса:</p>
+                <p id="result-q1">Вопрос 1: <span></span></p>
+                <p id="result-q2">Вопрос 2: <span></span></p>
+
+            </div>
+        </section>
+
+        <script>
+            const submitButton = document.getElementById("submit");
+            const resultsContainer = document.getElementById("results");
+            const resultQ1 = document.getElementById("result-q1").querySelector('span');
+            const resultQ2 = document.getElementById("result-q2").querySelector('span');
+
+            submitButton.addEventListener("click", function () {
+                // Собираем ответы
+                const q1Answer = document.querySelector('input[name="q1"]:checked');
+                const q2Answer = document.querySelector('input[name="q2"]:checked');
+
+                if (q1Answer && q2Answer) {
+                    // Показываем результаты
+                    resultsContainer.style.display = "block";
+                    resultQ1.textContent = q1Answer.value;
+                    resultQ2.textContent = q2Answer.value;
+                    event.preventDefault();
+                    
+                    // Дополнительные действия, например, отправка результатов на сервер
+                } else {
+                    event.preventDefault();
+                    alert("Пожалуйста, ответьте на все вопросы!");
+                }
+            })
+
+            // const form = document.querySelector("#surveyForm");
+            // const submitButton = document.querySelector(".finish");
+            // const resultsContainer = document.querySelector("#results");
+            // const selectedAnswersList =
+            //     document.getElementById("selectedAnswers");
+
+            //     const question = [
+            //         {
+            //             name: "color",
+            //             questionText: "Вопрос 1: Какой ваш любимый цвет?",
+            //         },
+            //         {
+            //             name: "animal",
+            //             questionText: "Вопрос 2: Какое ваше любимое животное?",
+            //         },
+            //     ];    
+
+            // function getSelectedAnswer(questionName) {
+            //     const selectedRadio = document.querySelector(
+            //         `input[name="${questionName}"]:checked`,
+            //     );
+            //     return selectedRadio ? selectedRadio.value : null;
+            // }
+
+            // function showResults() {
+            //     resultsContainer.style.display = "block";
+            //     selectedAnswersList.innerHTML = "";
+
+            //     question.forEach((question) => {
+            //         const selectedAnswer = getSelectedAnswer(question.name);
+            //         if (selectedAnswer) {
+            //             const listItem = document.createElement("li");
+            //             listItem.textContent = `${question.questionText}: ${selectedAnswer}`;
+            //             selectedAnswersList.appendChild(listItem);
+            //         }
+            //     });
+            // }
+
+            // function allQuestionsAnswered() {
+            //     return question.every(
+            //         (question) => getSelectedAnswer(question.name) !== null,
+            //     );
+            // }
+
+            // submitButton.addEventListener("click", (event) => {
+            //         if (allQuestionsAnswered()) {
+            //             showResults();
+            //             event.preventDefault();
+
+            //         } else {
+            //             event.preventDefault();
+            //             alert("Вы не ответили на все вопросы");
+            //         }
+            //     });
+        </script>
+    </body>
+</html>

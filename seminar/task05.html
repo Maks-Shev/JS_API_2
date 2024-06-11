@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Моргающий текс</h1>
+    
+    <script>
+        let color = 'blue';
+        window.onload = function() {
+            let header = document.querySelector('h1');
+            setInterval(function() {
+                color = color == 'blue' ? "red" : "blue";
+                header.style.color = color;
+            }), 6000;
+        };
+    </script>
+</body>
+</html>
