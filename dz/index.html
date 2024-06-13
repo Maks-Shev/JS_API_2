@@ -15,15 +15,15 @@
                 position: relative;
                 width: 100%;
                 max-width: 600px;
-                margin-top: 50px;
                 overflow: hidden;
                 margin: 50px auto;
-
+                
             }
 
             .slider {
                 display: flex;
                 transition: transform 0.5s ease-in-out;
+                
             }
 
             .slide {
@@ -31,8 +31,12 @@
             }
 
             img {
-                width: 600px;
-               height: 300px;
+               width: 400px;
+               height: 250px;
+               display: block;
+               border-radius: 10px;
+               margin-left: 100px;
+
             }
 
             .dots {
@@ -80,7 +84,7 @@
     </head>
     <body>
         <div class="slider-container">
-            <div id="slider" class="slider"></div>
+            <div id="slider" class="slider"></div>           
             <button class="prev">Prev</button>
             <button class="next">Next</button>
             <div id="dots" class="dots"></div>
@@ -101,6 +105,7 @@ const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 
 let currentSlider = 0;
+let slideInterval;
 
 function createSlider(image) {
     const slide = document.createElement("div");
@@ -128,6 +133,19 @@ function showSlide(index) {
     });
 }
 
+function nextSLide () {
+    currentSlider = (currentSlider === images.length - 1)? 0 : currentSlider + 1;
+    showSlide(currentSlider);
+}
+
+function startSlideShow () {
+    slideInterval = setInterval(nextSLide, 5000);
+}
+
+function stopSlideShow () {
+    clearInterval(slideInterval);
+}
+
 images.forEach((image, index) => {
     const slide = createSlider(image);
     slider.append(slide);
@@ -139,15 +157,20 @@ images.forEach((_, index) => {
 });
 
 showSlide(currentSlider);
+startSlideShow();
 
 prevBtn.addEventListener("click", () => {
+    stopSlideShow();
     currentSlider = (currentSlider === 0) ? images.length - 1 : currentSlider - 1;
     showSlide(currentSlider);
+    stopSlideShow();
 });
 
 nextBtn.addEventListener("click", () => {
+    stopSlideShow();
     currentSlider = (currentSlider === images.length - 1) ? 0 : currentSlider + 1;
     showSlide(currentSlider);
+    startSlideShow();
 });
 
         </script>
